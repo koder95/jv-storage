@@ -7,6 +7,7 @@ public class StorageImpl<K, V> implements Storage<K, V> {
     private static final int MAX_SIZE = 10;
     private final K[] keys = (K[]) new Object[MAX_SIZE];
     private final V[] values = (V[]) new Object[MAX_SIZE];
+    private int size = 0;
 
     @Override
     public void put(K key, V value) {
@@ -15,7 +16,7 @@ public class StorageImpl<K, V> implements Storage<K, V> {
             values[index] = value;
             return;
         }
-        index = size();
+        index = size++;
         keys[index] = key;
         values[index] = value;
     }
@@ -37,6 +38,6 @@ public class StorageImpl<K, V> implements Storage<K, V> {
 
     @Override
     public int size() {
-        return indexOf(null);
+        return size;
     }
 }
