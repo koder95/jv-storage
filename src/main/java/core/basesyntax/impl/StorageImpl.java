@@ -15,7 +15,7 @@ public class StorageImpl<K, V> implements Storage<K, V> {
             values[index] = value;
             return;
         }
-        index = indexOf(null);
+        index = size();
         keys[index] = key;
         values[index] = value;
     }
@@ -37,6 +37,6 @@ public class StorageImpl<K, V> implements Storage<K, V> {
 
     @Override
     public int size() {
-        return keys.length;
+        return indexOf(null);
     }
 }
