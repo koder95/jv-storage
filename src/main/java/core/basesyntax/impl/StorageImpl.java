@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class StorageImpl<K, V> implements Storage<K, V> {
-    private Object[] keys = new Object[0];
-    private Object[] values = new Object[0];
+    private static final int MAX_SIZE = 0;
+    private final K[] keys = (K[]) new Object[MAX_SIZE];
+    private final V[] values = (V[]) new Object[MAX_SIZE];
 
     @Override
     public void put(K key, V value) {
@@ -15,9 +16,7 @@ public class StorageImpl<K, V> implements Storage<K, V> {
             values[index] = value;
             return;
         }
-        index = keys.length;
-        keys = Arrays.copyOf(keys, keys.length + 1);
-        values = Arrays.copyOf(values, values.length + 1);
+        index = indexOf(null);
         keys[index] = key;
         values[index] = value;
     }
