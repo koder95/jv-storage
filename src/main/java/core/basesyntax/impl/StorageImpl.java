@@ -5,9 +5,14 @@ import java.util.Objects;
 
 public class StorageImpl<K, V> implements Storage<K, V> {
     private static final int MAX_SIZE = 10;
-    private final K[] keys = (K[]) new Object[MAX_SIZE];
-    private final V[] values = (V[]) new Object[MAX_SIZE];
+    private final K[] keys;
+    private final V[] values;
     private int size = 0;
+
+    public StorageImpl() {
+        keys = (K[]) new Object[MAX_SIZE];
+        values = (V[]) new Object[MAX_SIZE];
+    }
 
     @Override
     public void put(K key, V value) {
@@ -17,6 +22,9 @@ public class StorageImpl<K, V> implements Storage<K, V> {
             return;
         }
         index = size++;
+        if (size > keys.length) {
+            throw new IndexOutOfBoundsException("Cannot put to storage, because is no free space");
+        }
         keys[index] = key;
         values[index] = value;
     }
